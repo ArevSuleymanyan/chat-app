@@ -1,0 +1,41 @@
+version: "3"
+services:
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "80:80"
+      - "3050:81"
+  redis-server:
+    image: 'redis'
+    ports:
+      - '6379:6379'
+  api:
+    build:
+      dockerfile: Dockerfile.dev
+      context: "./server"
+    links:
+      - redis-server
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    ports:
+      - "8080:8080"
+      - "3000:3000"
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    links:
+      - api
+    volumes:
+      - /app/node_modules
+      - ./client:/app

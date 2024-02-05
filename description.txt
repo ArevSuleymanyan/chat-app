@@ -1,0 +1,9 @@
+Create a chat application that will have a very simple web user interface.
+When a user connects to the web UI he will first be asked to enter the desired nickname for the chat and clicking on connect will connect him to the chat.
+The chat window will consist of a message panel where we display messages from the chat and an edit box with the "Send" button to send a new message to the chat.
+
+Technical requirements.
+
+- Should be written in Node.js;
+- We should write the app in a way that it can be set to use multiple CPUs (we can use Nginx for load balancing and Redis for communication);
+- There are a lot of examples online for similar apps, and it is okay to use them as learning material or samples, but would be good to implement this ourselves
